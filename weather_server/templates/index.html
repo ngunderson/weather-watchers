@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Local Weather</title>
+    <meta name="description" content="User driven localized weather data">
+    <!--<link rel="stylesheet" href="stylesheet.css" type="text/css">-->
+  </head>
+  <body>
+    <h1> User Driven Weather </h1>
+    <h3> Add a Device </h3>
+    <form id="add-device-form">
+      Latitude: <input type="text" name="latitude">
+      Longitude: <input type="text" name="longitude">
+      <input type="submit">
+    </form>
+    <br>
+    <h3> Devices <span id="devices-header"></span> </h3>
+    <table>
+      <thead>
+	<th> Device ID </th>
+	<th> Latitude  </th>
+	<th> Longitude </th>
+	<th> Weather   </th>
+      </thead>
+      <tbody id="devices">
+    </table>
+
+
+      <script
+	 type="text/javascript"
+	 src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}">
+      </script>
+      <script
+	 type="text/javascript"
+	 src="{{ url_for('static', filename='main.js') }}">
+      </script>
+
+  </body>
+  </html>

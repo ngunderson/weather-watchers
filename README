@@ -1,0 +1,18 @@
+# Weather Watchers
+
+This is the server portion of a user driven weather network application.
+
+Currently undergoing development.
+
+### INSTALL
+To install this package, run:
+
+`pip install -e .`
+
+in the directory containing setup.py.
+
+If needed run,
+
+`pip install setuptools --upgrade`
+
+if a "bdist" error occurs
