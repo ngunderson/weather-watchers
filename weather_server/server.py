@@ -8,12 +8,15 @@ import sys
 
 # intialize application for use database
 
-def create_app():
+def create_app(cfg):
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////home/nate/workspace/weather-db/weather.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = cfg.get("SQLALCHEMY_DATABASE_URI")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['TESTING'] = cfg.get("TESTING") or False
     db.init_app(app)
     ma.init_app(app)
+    app.register_blueprint(front_end)
+    app.register_blueprint(api)
     return app
 
 ##### Logging config #####
@@ -23,9 +26,10 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 ##### Run the application #####
 
 def main():
-    app = create_app()
-    app.register_blueprint(front_end)
-    app.register_blueprint(api)
+    cfg = {
+        "SQLALCHEMY_DATABASE_URI" : "sqlite:////home/nate/workspace/weather-db/weather.db"
+    }
+    app = create_app(cfg)
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 

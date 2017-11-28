@@ -32,8 +32,5 @@ def get_devices():
     Returns all the devices
     """
     devices = Device.query.all()
-    print("devices returned")
-    print(devices)
     result = device_schema.dump(devices)
-    print(result)
     return jsonify(result.data)
