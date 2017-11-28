@@ -6,9 +6,14 @@ from weather_server.views.api import api
 import logging
 import sys
 
+CFG = {
+    "SQLALCHEMY_DATABASE_URI" : "sqlite:////home/nate/workspace/weather-db/weather.db"
+}
+
+
 # intialize application for use database
 
-def create_app(cfg):
+def create_app(cfg=CFG):
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = cfg.get("SQLALCHEMY_DATABASE_URI")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -26,10 +31,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 ##### Run the application #####
 
 def main():
-    cfg = {
-        "SQLALCHEMY_DATABASE_URI" : "sqlite:////home/nate/workspace/weather-db/weather.db"
-    }
-    app = create_app(cfg)
+    app = create_app()
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 
