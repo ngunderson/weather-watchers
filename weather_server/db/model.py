@@ -14,6 +14,9 @@ class Device(db.Model):
     latitude = db.Column(db.Float(precision=6), nullable=False, unique=False)
     longitude = db.Column(db.Float(precision=6), nullable=False, unique=False)
     weather = db.relationship("Weather", backref="Device")
+    # restricts device deletion
+    password = db.Column(db.String(100), nullable=False)
+
 
 class Weather(db.Model):
     __tablename__ = "weather"
@@ -22,8 +25,6 @@ class Weather(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     temp = db.Column(db.Integer, nullable=True)
     # new columns would have to be added for new weather data
-    # Key to be added if time permits
-    key = db.Column(db.String(100), nullable=True)
 
 ##### SCHEMAS #####
 

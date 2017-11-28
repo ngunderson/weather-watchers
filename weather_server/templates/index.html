@@ -9,10 +9,16 @@
   <body>
     <h1> User Driven Weather </h1>
     <h3> Add a Device </h3>
+    <p>
+      Enter the latitude and longitude where the device is located.
+      <span id="add-dev-error"></span>
+    </p>
+
     <form id="add-device-form">
       Latitude: <input type="text" name="latitude">
       Longitude: <input type="text" name="longitude">
-      <input type="submit">
+      Password (8 or more characters): <input type="password" name="password">
+      <input type="submit" value="Add Device">
     </form>
     <br>
     <h3> Devices <span id="devices-header"></span> </h3>
@@ -22,6 +28,8 @@
 	<th> Latitude  </th>
 	<th> Longitude </th>
 	<th> Weather   </th>
+	<th> Password  </th>
+	<th> Remove    </th>
       </thead>
       <tbody id="devices">
     </table>

@@ -1,6 +1,7 @@
 var $devicesHeader = $('#devices-header');
 var $devices = $('#devices');
 var $addDeviceForm = $('#add-device-form');
+var $addDevError = $('#add-dev-error')
 
 $addDeviceForm.submit(function(event) {
     $.ajax({
@@ -9,10 +10,12 @@ $addDeviceForm.submit(function(event) {
         data: $(this).serialize()
     }).done(function(res){
         getDevices()
+	$addDeviceForm[0].reset();
+	$addDevError.text('');
     }).fail(function(){
-        console.error("An error occurred, the files couldn't be created.");
+	$addDevError.text('(Invalid device information or password.)');
     });
-    event.preventDefault()
+    event.preventDefault();
 })
 
 function weatherHTML(weather) {
@@ -27,10 +30,12 @@ function weatherHTML(weather) {
 }
 
 function deviceHTML(device) {
-    var str = '<tr><td>' + device.id + '</td>';
+    var str = '<tr dev-id="' + device.id + '"><td>' + device.id + '</td>';
     str += '<td>' + device.latitude + '</td>';
     str += '<td>' + device.longitude + '</td>';
-    str += '<td><select>' + weatherHTML(device.weather) + '</select></tr>';
+    str += '<td><select>' + weatherHTML(device.weather) + '</select></td>';
+    str += '<td><input type="password" name="password"></td>'
+    str += '<td><button class="delete">X</button></td></tr>';
 
     return str
 }
@@ -44,14 +49,34 @@ function getDevices() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-	    $devicesHeader.text('(' + Object.keys(data).length  +')')
+	    $devicesHeader.text('(' + Object.keys(data).length  +')');
 	    data.forEach(function(device) {
-		console.log("in func")
 		$devices.append(deviceHTML(device));
 	    })
         }
     });
 }
+
+$devices.on('click', '.delete', function() {
+    $row = $(this).closest('tr');
+    $password = $row.find('input');
+    console.log("password value", $password.val());
+    $.ajax({
+        url: '/devices/' + $row.attr('dev-id'),
+        type: 'DELETE',
+	headers: {'password': $password.val()},
+        success: function() {
+            $row.fadeOut(300, function() {
+                $(this).remove();
+		getDevices();
+            });
+        },
+	error:  function (jqXHR, exception) {
+	    $password.val('');
+	}
+    });
+
+});
 
 /* Load Page Data */
 getDevices()
