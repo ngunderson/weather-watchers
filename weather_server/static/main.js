@@ -27,10 +27,12 @@ function weatherHTML(weather) {
 }
 
 function deviceHTML(device) {
-    var str = '<tr><td>' + device.id + '</td>';
+    var str = '<tr dev-id="' + device.id + '"><td>' + device.id + '</td>';
     str += '<td>' + device.latitude + '</td>';
     str += '<td>' + device.longitude + '</td>';
-    str += '<td><select>' + weatherHTML(device.weather) + '</select></tr>';
+    str += '<td><select>' + weatherHTML(device.weather) + '</select></td>';
+    str += '<td><input type="password" name="password"></td>'
+    str += '<td><button class="delete">X</button></td></tr>';
 
     return str
 }
@@ -52,6 +54,22 @@ function getDevices() {
         }
     });
 }
+
+$devices.on('click', '.delete', function() {
+    $tr = $(this).closest('tr');
+    $password = $(this).closest('input')
+    $.ajax({
+        url: '/devices/' + $tr.attr('dev-id'),
+        type: 'DELETE',
+	headers: {'password': $password.val()},
+        success: function() {
+            $tr.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }
+    });
+
+});
 
 /* Load Page Data */
 getDevices()
