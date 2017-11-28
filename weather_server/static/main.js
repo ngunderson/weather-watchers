@@ -18,7 +18,7 @@ $addDeviceForm.submit(function(event) {
 function weatherHTML(weather) {
     var str = '';
 
-    weather.forEach(function(entry) {
+    weather.reverse().forEach(function(entry) {
 	time = new Date(entry.time).toLocaleString();
 	str += '<option> ' + time + ' -- ' + entry.temp + ' F</option>';
     });
@@ -55,4 +55,3 @@ function getDevices() {
 
 /* Load Page Data */
 getDevices()
-//getWeather()
