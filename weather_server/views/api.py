@@ -5,7 +5,8 @@ api = Blueprint("api", __name__)
 
 SUCCESS = "", 200
 BAD_REQUEST = "", 400
-UNAUTHORIZED= "", 401
+UNAUTHORIZED = "", 401
+NOT_FOUND = "", 404
 
 ##### Initialize Schemas used to format return data #####
 
@@ -38,7 +39,7 @@ def create_device():
 def delete_device(dev_id):
     dev = Device.query.get(dev_id)
     if dev is None:
-        return BAD_REQUEST
+        return NOT_FOUND
 
     print("HEADERS are " + str(request.headers))
     if dev.password != request.headers.get("password"):
