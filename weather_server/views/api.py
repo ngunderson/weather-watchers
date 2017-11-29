@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, Blueprint
-from weather_server.db.model import db, Device, Weather, DeviceSchema, WeatherSchema
+from weather_server.db.model import db, Device, Weather, DeviceSchema
 
 api = Blueprint("api", __name__)
 
@@ -10,7 +10,6 @@ UNAUTHORIZED= "", 401
 ##### Initialize Schemas used to format return data #####
 
 device_schema = DeviceSchema(many=True)
-weather_schema = WeatherSchema(many=True)
 
 @api.route("/devices", methods=["POST"])
 def create_device():
