@@ -6,6 +6,13 @@ Currently undergoing development.
 
 ### INSTALL
 The following commands should be run in the currenty directory containing setup.py
+It is also recommended to use a local python environment by running:
+
+`python3 -m venv venv3`
+
+and
+
+`source venv3/bin/activate`
 
 To install this package, run:
 
