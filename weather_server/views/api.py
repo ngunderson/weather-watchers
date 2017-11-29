@@ -41,7 +41,6 @@ def delete_device(dev_id):
     if dev is None:
         return NOT_FOUND
 
-    print("HEADERS are " + str(request.headers))
     if dev.password != request.headers.get("password"):
         return UNAUTHORIZED
 
