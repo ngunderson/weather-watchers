@@ -5,6 +5,7 @@ from flask_testing import TestCase
 import unittest
 import warnings
 import json
+import os
 
 # self.client will access the initialized app
 
@@ -274,7 +275,11 @@ class TestFrontEndViews(WeatherServerBase):
 
         response = self.client.get("/static/main.js")
 
-        jsfile = open("static/main.js", "r")
+        jsfile = open(os.path.join(os.getcwd(),
+                                   os.path.dirname(__file__),
+                                   "static",
+                                   "main.js"), "r")
+
         jscontent = jsfile.read()
         jsfile.close()
 
@@ -285,7 +290,10 @@ class TestFrontEndViews(WeatherServerBase):
 
         response = self.client.get("/static/jquery-3.2.1.min.js")
 
-        jsfile = open("static/jquery-3.2.1.min.js", "r")
+        jsfile = open(os.path.join(os.getcwd(),
+                                   os.path.dirname(__file__),
+                                   "static",
+                                   "jquery-3.2.1.min.js"), "r")
         jscontent = jsfile.read()
         jsfile.close()
 
