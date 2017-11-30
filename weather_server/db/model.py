@@ -13,7 +13,7 @@ class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     latitude = db.Column(db.Float(precision=6), nullable=False, unique=False)
     longitude = db.Column(db.Float(precision=6), nullable=False, unique=False)
-    weather = db.relationship("Weather", backref="Device")
+    weather = db.relationship("Weather", backref="Device", cascade="all, delete-orphan")
     # restricts device deletion
     password = db.Column(db.String(100), nullable=False)
 
